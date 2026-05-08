@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ScrapeStatus {
+  pending
+  processing
+  completed
+  failed
+}
+
+enum MediaType {
+  image
+  video
+}
+
+model ScrapeJob {
+  id        String       @id @default(cuid())
+  url       String
+  status    ScrapeStatus @default(pending)
+  error     String?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  media     Media[]
+
+  @@index([createdAt])
+}
+
+model Media {
+  id        String    @id @default(cuid())
+  jobId     String
+  type      MediaType
+  mediaUrl  String
+  sourceUrl String
+  createdAt DateTime  @default(now())
+  job       ScrapeJob @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@index([type])
+  @@index([sourceUrl])
+  @@index([mediaUrl])
+  @@index([createdAt])
+  @@unique([sourceUrl, mediaUrl, type])
+}

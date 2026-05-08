@@ -1,0 +1,18 @@
+{
+  "name": "@media-scraper/shared",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsc -w -p tsconfig.json",
+    "lint": "eslint src --ext .ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "pino": "^9.7.0",
+    "zod": "^3.24.4"
+  }
+}

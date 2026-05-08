@@ -1,0 +1,24 @@
+{
+  "name": "media-scraper",
+  "private": true,
+  "version": "1.0.0",
+  "packageManager": "pnpm@10.11.0",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.18",
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "eslint": "^9.26.0",
+    "eslint-config-prettier": "^10.1.2",
+    "prettier": "^3.5.3",
+    "turbo": "^2.5.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
+  }
+}

@@ -1,0 +1,12 @@
+node_modules
+dist
+.turbo
+coverage
+*.log
+.env
+.env.*
+docker-compose.yml
+docker/
+.git
+.github
+README.md

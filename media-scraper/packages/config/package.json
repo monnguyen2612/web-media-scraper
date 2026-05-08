@@ -1,0 +1,12 @@
+{
+  "name": "@media-scraper/config",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo config",
+    "dev": "echo config",
+    "lint": "echo config",
+    "test": "echo config"
+  }
+}
