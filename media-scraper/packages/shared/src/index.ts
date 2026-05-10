@@ -11,7 +11,8 @@ export const appEnvSchema = z.object({
   REDIS_HOST: z.string().default('localhost'),
   REDIS_PORT: z.coerce.number().default(6379),
   API_PORT: z.coerce.number().default(3000),
-  WORKER_CONCURRENCY: z.coerce.number().min(1).max(10).default(6)
+  WORKER_CONCURRENCY: z.coerce.number().min(1).max(10).default(6),
+  RATE_LIMIT_MAX: z.coerce.number().min(1).default(1000)
 });
 
 export type AppEnv = z.infer<typeof appEnvSchema>;

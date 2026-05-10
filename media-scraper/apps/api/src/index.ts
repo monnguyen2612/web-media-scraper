@@ -31,7 +31,7 @@ export const buildApp = async (): Promise<FastifyInstance> => {
   });
 
   await app.register(cors, { origin: true });
-  await app.register(rateLimit, { max: 1000, timeWindow: '1 minute' });
+  await app.register(rateLimit, { max: env.RATE_LIMIT_MAX, timeWindow: '1 minute' });
   await app.register(swagger, {
     openapi: { info: { title: 'Media Scraper API', version: '1.0.0' } }
   });
@@ -148,26 +148,29 @@ export const buildApp = async (): Promise<FastifyInstance> => {
   });
 
   const created: Array<{ id: string; url: string }> = [];
-  const batchSize = 100;
+  const batchSize = 500;
   for (let i = 0; i < uniqueUrls.length; i += batchSize) {
     const chunk = uniqueUrls.slice(i, i + batchSize);
-    for (const url of chunk) {
-      const record = await prisma.scrapeJob.create({
-        data: { url, status: 'pending' },
-        select: { id: true, url: true }
-      });
-      created.push(record);
-      await queue.add(
-        'scrape-url',
-        { scrapeJobId: record.id, url: record.url },
-        {
+    
+    const records = await prisma.scrapeJob.createManyAndReturn({
+      data: chunk.map((url) => ({ url, status: 'pending' })),
+      select: { id: true, url: true }
+    });
+    
+    created.push(...records);
+
+    await queue.addBulk(
+      records.map((record) => ({
+        name: 'scrape-url',
+        data: { scrapeJobId: record.id, url: record.url },
+        opts: {
           attempts: 3,
           removeOnComplete: { age: 3600, count: 10000 },
           removeOnFail: { age: 24 * 3600, count: 10000 },
           backoff: { type: 'exponential', delay: 500 }
         }
-      );
-    }
+      }))
+    );
   }
 
     return reply.code(202).send({ accepted: created.length, jobIds: created.map((item) => item.id) });

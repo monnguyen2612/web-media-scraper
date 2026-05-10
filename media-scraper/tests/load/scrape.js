@@ -19,7 +19,7 @@ const API_BASE = __ENV.API_BASE_URL || 'http://localhost:3000';
 
 export default function () {
   const payload = JSON.stringify({
-    urls: Array.from({ length: 5 }, (_, index) => `https://example.com?test=${__VU}-${__ITER}-${index}`)
+    urls: Array.from({ length: 10 }, (_, index) => `https://example.com?test=${__VU}-${__ITER}-${index}`)
   });
 
   const response = http.post(`${API_BASE}/scrape`, payload, {
