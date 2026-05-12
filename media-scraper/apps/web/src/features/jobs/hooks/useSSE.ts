@@ -17,7 +17,7 @@ export const useSSE = (args: {
   useEffect(() => {
     if (!args.enabled) return;
 
-    const base = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:3000';
+    const base = (import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:3000').replace(/\/$/, '');
     const url = args.jobId ? `${base}/events/jobs/${encodeURIComponent(args.jobId)}` : `${base}/events`;
     const es = new EventSource(url);
 
@@ -34,6 +34,10 @@ export const useSSE = (args: {
     es.addEventListener('JOB_COMPLETED', handler);
     es.addEventListener('JOB_FAILED', handler);
     es.addEventListener('MEDIA_INSERTED', handler);
+
+    es.onerror = (err) => {
+      console.error('SSE Connection Error:', err);
+    };
 
     return () => {
       es.close();

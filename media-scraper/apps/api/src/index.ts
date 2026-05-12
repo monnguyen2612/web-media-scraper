@@ -12,7 +12,7 @@ import {
   scrapeRequestSchema
 } from '@media-scraper/shared';
 import { Queue } from 'bullmq';
-import Fastify, { type FastifyInstance } from 'fastify';
+import Fastify, { type FastifyInstance, type FastifyReply } from 'fastify';
 import ipaddr from 'ipaddr.js';
 import { z } from 'zod';
 import { createRedisPubSub, realtimeChannel, type RealtimeEvent } from './realtime.js';
@@ -77,7 +77,7 @@ export const buildApp = async (): Promise<FastifyInstance> => {
     }
   });
 
-  const registerSse = (reply: any, jobIdFilter?: string) => {
+  const registerSse = (reply: FastifyReply, jobIdFilter?: string) => {
     reply.raw.writeHead(200, {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
@@ -160,7 +160,7 @@ export const buildApp = async (): Promise<FastifyInstance> => {
     created.push(...records);
 
     await queue.addBulk(
-      records.map((record) => ({
+      records.map((record: { id: string; url: string }) => ({
         name: 'scrape-url',
         data: { scrapeJobId: record.id, url: record.url },
         opts: {
