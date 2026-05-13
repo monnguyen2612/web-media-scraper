@@ -37,6 +37,13 @@ services:
       WORKER_CONCURRENCY: 6
     ports:
       - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/apps/api/node_modules
+      - /app/apps/worker/node_modules
+      - /app/apps/web/node_modules
+      - /app/packages/db/node_modules
     depends_on:
       postgres:
         condition: service_healthy
@@ -52,7 +59,13 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       WORKER_CONCURRENCY: 6
-      API_PORT: 3000
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/apps/api/node_modules
+      - /app/apps/worker/node_modules
+      - /app/apps/web/node_modules
+      - /app/packages/db/node_modules
     depends_on:
       postgres:
         condition: service_healthy
@@ -67,6 +80,13 @@ services:
       VITE_API_BASE_URL: http://localhost:3000
     ports:
       - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/apps/api/node_modules
+      - /app/apps/worker/node_modules
+      - /app/apps/web/node_modules
+      - /app/packages/db/node_modules
     depends_on:
       - api
 
