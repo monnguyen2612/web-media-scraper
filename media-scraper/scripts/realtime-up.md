@@ -1,5 +1,22 @@
 ## Realtime dev automation
 
+
+**Reset Database (Wipe all data):**
+If you want to completely clear the database and start fresh (this deletes all volumes):
+
+**macOS / Linux:**
+```bash
+chmod +x ./scripts/reset-db.sh
+./scripts/reset-db.sh
+```
+
+**Windows:**
+```powershell
+.\scripts\reset-db.ps1
+```
+
+---
+
 ### Windows (PowerShell)
 Run from repo root:
 
