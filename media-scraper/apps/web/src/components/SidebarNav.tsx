@@ -6,6 +6,7 @@ import {
   Activity 
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 export type TabType = 'submit' | 'jobs' | 'media' | 'timeline';
 
@@ -15,11 +16,13 @@ interface SidebarNavProps {
 }
 
 export const SidebarNav = ({ activeTab, setTab }: SidebarNavProps): React.ReactElement => {
+  const { t } = useTranslation();
+
   const navItems = [
-    { id: 'submit', label: 'Submit Scrape', icon: PlusCircle },
-    { id: 'jobs', label: 'Recent Jobs', icon: ListTodo },
-    { id: 'media', label: 'Media Library', icon: ImageIcon },
-    { id: 'timeline', label: 'Live Activity', icon: Activity },
+    { id: 'submit', label: t('sidebar.submitScrape'), icon: PlusCircle },
+    { id: 'jobs', label: t('sidebar.recentJobs'), icon: ListTodo },
+    { id: 'media', label: t('sidebar.mediaLibrary'), icon: ImageIcon },
+    { id: 'timeline', label: t('sidebar.liveActivity'), icon: Activity },
   ] as const;
 
   return (
@@ -32,7 +35,7 @@ export const SidebarNav = ({ activeTab, setTab }: SidebarNavProps): React.ReactE
       </div>
 
       <nav className="flex-1 px-4 py-4 space-y-2">
-        <p className="px-3 mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">Navigation</p>
+        <p className="px-3 mb-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">{t('sidebar.navigation')}</p>
         {navItems.map((item) => (
           <button
             key={item.id}
@@ -58,10 +61,10 @@ export const SidebarNav = ({ activeTab, setTab }: SidebarNavProps): React.ReactE
 
       <div className="p-4 border-t border-slate-800/50">
         <div className="rounded-xl bg-slate-900/50 p-4 border border-slate-800/50">
-          <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">Status</p>
+          <p className="text-[10px] font-bold text-slate-500 uppercase mb-1">{t('sidebar.status')}</p>
           <div className="flex items-center gap-2">
             <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
-            <span className="text-xs text-slate-300 font-medium">System Online</span>
+            <span className="text-xs text-slate-300 font-medium">{t('sidebar.systemOnline')}</span>
           </div>
         </div>
       </div>

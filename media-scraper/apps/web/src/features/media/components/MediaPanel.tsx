@@ -7,8 +7,10 @@ import { useMedia } from '@/features/media/hooks/useMedia';
 import { useRealtimeCache } from '@/features/jobs/hooks/useRealtimeCache';
 import { useSSE } from '@/features/jobs/hooks/useSSE';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 export const MediaPanel = (): React.ReactElement => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [searchInput, setSearchInput] = useState('');
   const [type, setType] = useState<MediaType | ''>('');
@@ -53,7 +55,7 @@ export const MediaPanel = (): React.ReactElement => {
                 setSearchInput(event.target.value);
               });
             }}
-            placeholder="Search media or source URL..."
+            placeholder={t('media.searchPlaceholder')}
             className="w-full rounded-xl border border-slate-800 bg-slate-950/50 px-4 py-2 text-sm focus:ring-2 focus:ring-indigo-500/20 outline-none transition-all"
           />
         </div>
@@ -67,11 +69,11 @@ export const MediaPanel = (): React.ReactElement => {
               setType(event.target.value as MediaType | '');
             });
           }}
-          className="rounded-xl border border-slate-800 bg-slate-950 px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/20"
+          className="rounded-xl border border-slate-800 bg-slate-950 pl-4 pr-10 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500/20 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2364748b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:10px_10px] bg-[right_1rem_center] bg-no-repeat"
         >
-          <option value="">All media types</option>
-          <option value="image">Image</option>
-          <option value="video">Video</option>
+          <option value="">{t('media.allTypes')}</option>
+          <option value="image">{t('media.image')}</option>
+          <option value="video">{t('media.video')}</option>
         </select>
 
         <div className="flex gap-2">
@@ -80,21 +82,21 @@ export const MediaPanel = (): React.ReactElement => {
             disabled={query.isFetching}
             onClick={() => query.refetch()}
           >
-            {query.isFetching ? 'Refreshing...' : 'Refresh'}
+            {query.isFetching ? t('media.refreshing') : t('media.refresh')}
           </button>
           <button
             className="rounded-xl border border-slate-800 bg-slate-900 px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-all disabled:opacity-50"
             onClick={exportCsv}
             disabled={items.length === 0}
           >
-            Export
+            {t('media.export')}
           </button>
         </div>
       </section>
 
       {query.isError && (
         <div className="p-8 text-center text-red-400 bg-red-500/5 rounded-2xl border border-red-500/10">
-          Failed to load media gallery.
+          {t('media.loadError')}
         </div>
       )}
 
@@ -104,19 +106,19 @@ export const MediaPanel = (): React.ReactElement => {
           
           {items.length === 0 && !query.isLoading && (
             <div className="p-20 text-center text-slate-600 italic">
-              No media items found for this search.
+              {t('media.noResults')}
             </div>
           )}
         </div>
       ) : (
         <div className="p-20 text-center text-slate-500 italic">
-          Loading media library...
+          {t('media.loading')}
         </div>
       )}
 
       <footer className="flex items-center justify-between px-2">
         <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">
-          Total Discoveries: {query.data?.total ?? 0}
+          {t('media.totalDiscoveries', { count: query.data?.total ?? 0 })}
         </div>
         <div className="flex items-center gap-4">
           <button 
@@ -124,7 +126,7 @@ export const MediaPanel = (): React.ReactElement => {
             disabled={page <= 1} 
             onClick={goPrev}
           >
-            Prev
+            {t('media.prev')}
           </button>
           <span className="text-xs font-bold text-slate-400">
             {page} / {totalPages}
@@ -134,7 +136,7 @@ export const MediaPanel = (): React.ReactElement => {
             disabled={page >= totalPages}
             onClick={goNext}
           >
-            Next
+            {t('media.next')}
           </button>
         </div>
       </footer>
@@ -145,7 +147,7 @@ export const MediaPanel = (): React.ReactElement => {
           onClick={() => setShowTable((old) => !old)}
         >
           <span className={cn("h-1.5 w-1.5 rounded-full transition-colors", showTable ? "bg-indigo-500" : "bg-slate-700")} />
-          {showTable ? 'Hide Tabular Data' : 'View Tabular Data'}
+          {showTable ? t('media.hideTable') : t('media.showTable')}
         </button>
         {showTable ? (
           <div className="mt-4 glass-panel rounded-2xl overflow-hidden animate-slide-up">

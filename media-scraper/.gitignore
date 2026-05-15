@@ -6,3 +6,7 @@ dist
 coverage
 *.log
 .txt
+.pnpm-store
+.DS_Store
+.vscode
+.idea

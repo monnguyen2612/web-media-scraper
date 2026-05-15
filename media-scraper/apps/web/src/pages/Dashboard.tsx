@@ -5,8 +5,10 @@ import { MediaPanel } from '@/features/media/components/MediaPanel';
 import { SubmitPanel } from '@/features/scraper/components/SubmitPanel';
 import { TimelinePanel } from '@/features/timeline/components/TimelinePanel';
 import { SidebarNav, type TabType } from '@/components/SidebarNav';
+import { useTranslation } from 'react-i18next';
 
 export const Dashboard = (): React.ReactElement => {
+  const { t } = useTranslation();
   const [tab, setTab] = useState<TabType>('submit');
   const [urlsText, setUrlsText] = useState('https://example.com');
 
@@ -19,16 +21,13 @@ export const Dashboard = (): React.ReactElement => {
           <div className="max-w-6xl mx-auto flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold tracking-tight">
-                {tab === 'submit' && 'Submit Scrape'}
-                {tab === 'jobs' && 'Recent Jobs'}
-                {tab === 'media' && 'Media Library'}
-                {tab === 'timeline' && 'Live Activity'}
+                {tab === 'submit' && t('sidebar.submitScrape')}
+                {tab === 'jobs' && t('sidebar.recentJobs')}
+                {tab === 'media' && t('sidebar.mediaLibrary')}
+                {tab === 'timeline' && t('sidebar.liveActivity')}
               </h2>
               <p className="text-sm text-slate-400 mt-1">
-                {tab === 'submit' && 'Enqueue new URLs for background processing.'}
-                {tab === 'jobs' && 'Monitor and manage your active scraping jobs.'}
-                {tab === 'media' && 'Browse and filter discovered media assets.'}
-                {tab === 'timeline' && 'Real-time stream of platform events.'}
+                {t(`sidebar.desc.${tab}`)}
               </p>
             </div>
             

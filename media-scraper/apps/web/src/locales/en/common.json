@@ -1,0 +1,89 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "status": "Status",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At",
+    "actions": "Actions",
+    "noData": "No data available"
+  },
+  "jobs": {
+    "title": "Scrape Jobs",
+    "targetUrl": "Target URL",
+    "currentStatus": "Current Status",
+    "errorTrace": "Error Trace",
+    "retryProcessing": "Retry Processing",
+    "mediaSample": "Media Sample",
+    "selectJob": "Select a job to view details",
+    "loadingDetails": "Loading details...",
+    "items": "{{count}} items",
+    "searchPlaceholder": "Search jobs or source URL...",
+    "status": {
+      "allStatuses": "All",
+      "pending": "Pending",
+      "processing": "Processing",
+      "completed": "Completed",
+      "failed": "Failed"
+    }
+  },
+  "media": {
+    "title": "Media Gallery",
+    "type": "Type",
+    "sourceUrl": "Source URL",
+    "mediaUrl": "Media URL",
+    "searchPlaceholder": "Search media or source URL...",
+    "allTypes": "All media types",
+    "image": "Image",
+    "video": "Video",
+    "refresh": "Refresh",
+    "refreshing": "Refreshing...",
+    "export": "Export",
+    "loadError": "Failed to load media gallery.",
+    "noResults": "No media items found for this search.",
+    "loading": "Loading media library...",
+    "totalDiscoveries": "Total Discoveries: {{count}}",
+    "prev": "Prev",
+    "next": "Next",
+    "showTable": "View Tabular Data",
+    "hideTable": "Hide Tabular Data"
+  },
+  "sidebar": {
+    "navigation": "Navigation",
+    "submitScrape": "Submit Scrape",
+    "recentJobs": "Recent Jobs",
+    "mediaLibrary": "Media Library",
+    "liveActivity": "Live Activity",
+    "status": "Status",
+    "systemOnline": "System Online",
+    "desc": {
+      "submit": "Enqueue new URLs for background processing.",
+      "jobs": "Monitor and manage your active scraping jobs.",
+      "media": "Browse and filter discovered media assets.",
+      "timeline": "Real-time stream of platform events."
+    }
+  },
+  "scraper": {
+    "title": "Submit URLs to scrape",
+    "description": "Paste one URL per line (or comma-separated). Requests are queued; scraping happens asynchronously.",
+    "placeholder": "https://example.com",
+    "submit": "Submit URLs",
+    "submitting": "Submitting...",
+    "accepted": "Accepted {{count}} jobs",
+    "failed": "Submit failed. Check URLs and try again."
+  },
+  "errors": {
+    "network": "Network error, please check your connection.",
+    "server": "Server error, please try again later.",
+    "invalidUrl": "The provided URL is invalid or blocked for security reasons.",
+    "timeout": "The request timed out.",
+    "unknown": "An unknown error occurred.",
+    "onlyHttp": "Only HTTP/S URLs are allowed.",
+    "localhostBlocked": "Scraping localhost is blocked for security.",
+    "privateIpBlocked": "Private or internal network targets are blocked.",
+    "mediaLimitReached": "Maximum media limit per page reached (1000 items).",
+    "fetchFailed": "Failed to fetch the page after multiple attempts.",
+    "jobNotFound": "The requested job was not found."
+  }
+}
